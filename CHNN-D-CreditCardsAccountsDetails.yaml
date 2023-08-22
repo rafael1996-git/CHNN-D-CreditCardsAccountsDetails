@@ -1,0 +1,254 @@
+swagger: '2.0'
+info:
+  description: Realiza las formulas necesarias y Obtiene los campos necesarios para el listado de cuentas con tarjetas.
+  version: 2.0.4
+  title: CHNN-D-CreditCardsAccountsDetails
+basePath: /api/public/v2/crds/cc
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /det:
+    post:
+      tags:
+        - retrieve-credit-cards-accounts-details
+      operationId: retrieve-credit-cards-accounts-details
+      summary: Consulta los detalles necesarios de un producto de crédito con tarjeta a mostrar.
+      description: Consulta los detalles necesarios del crédito con tarjeta de un cliente a mostrar.
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Date
+          in: header
+          required: true
+          type: string
+          description: Fecha del dispositivo o del servidor de acuerdo a HTTP-Date
+        - name: Accept
+          in: header
+          required: true
+          type: string
+          description: Media type que son aceptados en la petición
+        - name: Accept-Charset
+          in: header
+          required: true
+          type: string
+          description: Tipo de carácteres de la aplicación
+        - name: Accept-Encoding
+          in: header
+          required: true
+          type: string
+          description: La aplicación deberá aceptar compresión de datos
+        - name: Accept-Language
+          in: header
+          required: true
+          type: string
+          description: La aplicación por defecto usuará español de México requerido
+        - name: Authorization
+          in: header
+          required: true
+          type: string
+          description: Token de autorizacion recibido durante el login
+        - name: Host
+          in: header
+          required: true
+          type: string
+          description: Host de la aplicación
+        - name: User-Agent
+          in: header
+          required: true
+          type: string
+          description: Identificador de la versión de frontend
+        - name: Content-Encoding
+          in: header
+          required: false
+          type: string
+          description: Datos comprimidos
+        - name: Content-Language
+          in: header
+          required: true
+          type: string
+          description: Lenguaje de la aplicación
+        - name: Content-Length
+          in: header
+          required: true
+          type: string
+          description: Tamaño del mensaje
+        - name: Content-MD5
+          in: header
+          required: true
+          type: string
+          description: Huella MD5 del contenido del mensaje
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: Media type que son enviados en la petición
+        - name: uuid
+          in: header
+          required: true
+          type: string
+          description: UUID que se genera para cada sesión
+        - name: deviceId
+          in: header
+          required: true
+          type: string
+          description: Identificador del dispositivo   
+        - name: channel_id
+          in: header
+          required: true
+          type: string
+          description: Canal de la aplicación
+        - name: CreditCardsAccountsDetailsRequest
+          in: body
+          required: true
+          description: Datos para consultar los detalles de la cuenta de crédito.
+          schema:
+            $ref: '#/definitions/CreditCardsAccountsDetailsRequest'
+      responses:
+        '200':
+          description: Operación Exitosa.
+          schema:
+            $ref: '#/definitions/CreditCardsAccountsDetailsResponse'
+        '400':
+          description: >-
+            <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>error</td><td>invalidRequest</td><td>Parámetros
+            faltantes/Parámteros inválidos</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: >-
+            <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>error</td><td>unAuthorized</td><td>Falta
+            de credenciales/Credenciales inválidas</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: >-
+            <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td><td>Más
+            información</td></tr><tr><td>error</td><td>accessNotConfigured</td><td>La
+            operación solicitada no ha sido configurada para acceder a este
+            recurso</td><td>Canal/País/Negocio provisto en la petición no es
+            soportado por el momento.</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: >-
+            <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td><td>Más
+            información</td></tr><tr><td>error</td><td>resourceNotFound</td><td>El
+            recurso solicitado no ha sido encontrado</td><td>Recurso no
+            existe/Recurso no encontrado</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '408':
+          description: >-
+            <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>error
+            </td><td>requestTimeout</td><td>El servidor ha decidido cerrar la conexión en lugar de continuar esperando</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '500':
+          description: >-
+            <table><tr><td>Tipo</td><td>Código</td><td>Detalles</td></tr><tr><td>fatal</td><td>serverUnavailable</td><td>La
+            petición falló debido a un error interno del servidor/Servidor no
+            disponible</td></tr></table>
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+definitions:
+  CreditCardsAccountsDetailsRequest:
+    title: CreditCardsAccountsDetailsRequest
+    type: object
+    properties:
+      creditNumber:
+        description: Número del crédito.
+        type: string
+    required:
+    - creditNumber
+  CreditCardsAccountsDetailsResponse:
+    title: CreditCardsAccountsDetailsResponse
+    type: object
+    properties:
+      paymentDueDate:
+        description: Fecha límite de pago.
+        type: string
+      minimumPayment:
+        description: Pago mínimo
+        type: number
+        format: double
+      paymentAvoidInterest:
+        description:  Pago para no generar intereses.
+        type: number
+        format: double
+      balanceDate:
+        description: Saldo a la fecha.
+        type: number
+        format: double
+      creditAvailable:
+        description: Credito disponible.
+        type: number
+        format: double
+      reteinedBalance:
+        description: Saldo retenido.
+        type: number
+        format: double
+      cuttOfDate:
+        description: Fecha de corte de la tarjeta de crédito.
+        type: string
+        example: '2017-07-25'
+      notInterestMinimunPayment:
+        description: Pago mínimo más meses sin intereses.
+        type: number
+        format: double
+        example: 600.32
+      cutBalance:
+        description: Saldo al Corte.
+        type: number
+        format: double
+      creditLimit:
+        description: Limite de Credito.
+        type: number
+        format: double
+    required:
+      - paymentDueDate
+      - minimumPayment
+      - paymentAvoidInterest
+      - balanceDate
+      - creditAvailable
+      - reteinedBalance
+      - cuttOfDate
+      - notInterestMinimunPayment
+      - cutBalance
+      - creditLimit
+  ErrorResponse:
+    properties:
+      type:
+        type: string
+        description: >-
+          Invalido - La petición no cumple con las especificaciones, no fue
+          procesada y se rechazó.
+        enum:
+          - error
+          - warn
+          - invalid
+          - fatal
+      code:
+        description: Código de error
+        type: string
+      details:
+        description: Detalles del error
+        type: string
+      location:
+        description: En dónde ocurrió el error
+        type: string
+      moreInfo:
+        description: Mas información del error
+        type: string
+      uuid:
+        description: UUID que se genera en cada petición
+        type: string
+      timestamp:
+        description: Tiempo y hora del error
+        type: string
+    required:
+      - type
+      - code
+      - uuid

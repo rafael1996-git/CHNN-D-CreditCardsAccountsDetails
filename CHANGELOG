@@ -1,0 +1,39 @@
+v1
+29/01/2020
+Se sube Swagger para validación
+v1.2 - 30/01/2020
+Se agrega deviceId como requerido
+v1.3 - 12/02/2020
+Se cambia el response de Array a Object
+v1.4 - 12/02/2020
+Se modifica enum de error response
+v1.5 - 12/02/2020
+Se modifica path.
+v1.6 - 04/03/2020
+Se agrega en el ErrorResponse el codigo 408.
+v1.7 - 08/05/2020
+Se agregan los campos minimumPaymentUpdatePayments y paymentNotGenerateInterestUpdatePayments al response.
+v1.8 - 30/01/2020
+Se agrega deviceId como requerido
+v1.9 - 12/02/2020
+Se cambia el response de Array a Object
+v1.10 - 12/02/2020
+Se modifica enum de error response
+v1.11 - 12/02/2020
+Se modifica path.
+v1.12 - 04/03/2020
+Se agrega en el ErrorResponse el codigo 408.
+v1.13 - 08/05/2020
+Se agregan los campos minimumPaymentUpdatePayments y paymentNotGenerateInterestUpdatePayments al response.
+v1.14 - 15/05/2020
+Se eliminan los campos minimumPaymentUpdatePayments y paymentNotGenerateInterestUpdatePayments del response.
+v2  - 29/09/2020
+- Se agrega campo "reteinedBalcance" al response como requerido, y se cambia la version a v2.
+v2.1 - 10/03/2022
+ Se agrega campo "cuttOfDate" al response como requerido
+v2.2 - 10/03/2022
+ Se actualiza el basepath a la siguiente ruta /api/public/v2/crds/cc/det
+v2.3
+- Se agrega el campo notInterestMinimunPayment en el Response de la API validate-credit-card-account
+v2.4
+-Se agregan los campos CutBalance y creditLimit del Response de la Api /api/public/v2/crds/cc/det 
